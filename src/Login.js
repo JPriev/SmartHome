@@ -79,49 +79,6 @@ class Login extends Component {
             </div>
         )
     }
-
-/* <form onSubmit={this.login}>
-<FormGroup controlId="email" validationState={ formSubmitted ? (errors.email ? 'error' : 'success') : null }>
-    <ControlLabel>Email</ControlLabel>
-    <FormControl type="text" name="email" placeholder="Enter your email" onChange={this.handleInputChange} />
-{ errors.email &&
-    <HelpBlock>{errors.email}</HelpBlock>
-}
-</FormGroup>
-<FormGroup controlId="password" validationState={ formSubmitted ? (errors.password ? 'error' : 'success') : null }>
-    <ControlLabel>Password</ControlLabel>
-    <FormControl type="password" name="password" placeholder="Enter your password" onChange={this.handleInputChange} />
-{ errors.password &&
-    <HelpBlock>{errors.password}</HelpBlock>
-}
-</FormGroup>
-<Button type="submit" bsStyle="primary">Sign-In</Button>
-</form> */
-            // <div class="container" style="margin-top:20px;">
-            
-            //     <form>
-            //         <div class="form-group row">
-            //             <label class="col-sm-3 col-form-label" for="email">Email Address</label>
-            //             <div class="col-sm-9">
-            //                 <input type="text" class="form-control" id="email">
-            //         </div>
-                    
-            //         <div class="form-group row">
-            //             <label class="col-sm-3 col-form-label" for="password">Password</label>
-            //             <div class="col-sm-9">
-            //                 <input type="password" class="form-control" id="password">
-            //             </div>
-            //         </div>
-                    
-            //         <div class="row">
-            //             <div class="col-sm-9 offset-sm-3">
-            //                 <button type="submit" class="btn btn-primary">Login Now</button>
-            //             </div>
-            //         </div>
-                    
-            //     </form>
-            
-            // </div>
 }
 
 export default Login;
