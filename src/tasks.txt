@@ -1,0 +1,18 @@
+/Login: 
+    1. tikrinam ar username ir password (/Login/password) atitinka su DB esancia info
+        a. jei atitinka, gaunam visus duomenis (id, username, password, active, privilege)
+        b. ismetam alert ir attempts sumazinam per 1 (is viso attempts 3)
+    
+/Login/password:
+    1. ishashinam slaptazodi ir tikrinam su hashinta ivestim
+
+/Register:
+    1. ant slaptazodio pridedam salt
+    2. uzhashinam slaptazodi su SHA256
+    3. visus duomenis (id, username, password, active, privilege) issaugom DB
+    /* Registruojamas vartotojas gaus tik (id, username, active=false, privilege), o password irasys pats pirma karta prisijunges */
+    /* Jei DB password laukas yra tuscias, tada issoka langas, kuriame useris iveda ir pakartoja password'a */
+    /* Jei abu passwords atitinka, tada password laukas DB yra uzpildytas nurodytu slaptazodziu */
+
+Login.js
+{/*pasalinti onClick metoda*/}
