@@ -23,6 +23,7 @@ class Login extends Component {
             [event.target.name]: event.target.value
         })
     }
+  
 
     login = (e) => {
         // const [attempts, setAttempts] = useState(""); // kas karta paleidziant validation attempts bus 3
@@ -55,6 +56,7 @@ class Login extends Component {
     }
 
     validation = (event) => {
+        this.attempts = 3
         if (this.attempts > 0) {
             if (this.state.password.length >= 4) { 
                 if (this.state.username === this.state.user.username) {
@@ -79,14 +81,19 @@ class Login extends Component {
 
     redirectToTarget = () => {
         this.props.history.push({
-            pathname: '/home',
+            pathname: '/kitchen',
             state: { username: this.state.username, password: this.state.password } // perduot user_id ir privilege
-          })
-    }
+        })
+    } 
 
-    handleRegister = () => {
-        
-    }
+
+    handleModalOpen = () => {
+        this.setState((prevState) => {
+           return{
+              modalOpen: !prevState.modalOpen
+           }
+        })
+     }
 
     render() {
         return (
@@ -127,10 +134,16 @@ class Login extends Component {
                             {/* </Col>
                             <Col xs={12}> */}
                                 <Button className="btn-lg btn-dark btn-block" type="submit">Login</Button>
-                                <Button onClick={this.handleRegister} className="btn-lg btn-light btn-block">Register</Button>
+                                <Button onClick={this.handleModalOpen} className="btn-lg btn-light btn-block">Register</Button>
                             {/* </Col> */}
+                            
                         </form>
+                        
                     </Row>
+                    <RegisterModal
+                        modalOpen={this.state.modalOpen}
+                        handleModalOpen={this.handleModalOpen}
+                    />
                 </Container>
             </div>
         )

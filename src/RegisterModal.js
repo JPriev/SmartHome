@@ -1,31 +1,42 @@
 import React, { Component } from "react"
-import { Container, Modal, Button } from 'react-bootstrap';
+import { Container, Modal, Button, InputGroup, FormControl} from 'react-bootstrap';
 
-class RegisterModal extends Component {
-    constructor(props){
-        super(props)
-    }
+import Login from './Login'
 
-    render() {
-        return (
-            <Container>
+const RegisterModal = (props) => {
+    return (
+        <Container>
+            <Modal show={props.modalOpen} onHide={props.handleModalOpen}>
                 <Modal.Dialog>
                     <Modal.Header closeButton>
-                        <Modal.Title>Modal title</Modal.Title>
+                        <Modal.Title>Registration</Modal.Title>
                     </Modal.Header>
 
                     <Modal.Body>
-                        <p>Modal body text goes here.</p>
+                    <form className="register-form" >
+                        <InputGroup className="mb-3">
+                                        <InputGroup.Prepend>
+                                            <InputGroup.Text id="inputGroup-sizing-default">Username</InputGroup.Text>
+                                        </InputGroup.Prepend>
+                                            <FormControl
+                                                type="text"
+                                                name="username"
+                                                placeholder="Enter your username"
+                                            />
+                        </InputGroup>
+                    </form>
+                                
                     </Modal.Body>
 
                     <Modal.Footer>
-                        <Button variant="secondary">Close</Button>
-                        <Button variant="primary">Save changes</Button>
+                        <Button variant="dark">Next</Button>
+                        <Button variant="light" onClick={props.handleModalOpen}>Close</Button>
+                        
                     </Modal.Footer>
                 </Modal.Dialog>
-            </Container>
-        )
-    }
+            </Modal>
+        </Container>
+    )
 }
 
 export default RegisterModal;
