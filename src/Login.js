@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react';
-import { Container, Row, Col, Button, InputGroup, FormControl } from 'react-bootstrap';
+import { Container, Row, Col, Button, InputGroup, FormControl } from 'react-bootstrap'
 
 import './css/Login.css'
 import User from './User'
