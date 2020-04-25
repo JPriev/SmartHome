@@ -2,8 +2,7 @@ import React, { Component } from "react"
 import { Container, Row, Col } from 'react-bootstrap'
 
 import '../css/Room.css'
-import Topbar from '../Topbar'
-import Navigation from '../Navigation'
+import PermissionCard from './objects/PermissionCard'
 
 class Settings extends Component {
     constructor(props){
@@ -13,17 +12,11 @@ class Settings extends Component {
     render() {
         return (
             <Container>
-                {/* <Navigation /> */}
-                {/* <Row>
-                    <Col xs={12}>
-                        <Topbar />
-                    </Col>
-                </Row> */}
                 <Row>
-                    <Col xs={12}>
-                        <div>
-                            <h1>Settings</h1>
-                        </div>
+                    <Col xs={12} md={6} lg={4}>
+                        <PermissionCard
+
+                        />
                     </Col>
                 </Row>
             </Container>

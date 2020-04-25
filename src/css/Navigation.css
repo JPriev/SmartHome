@@ -1,9 +1,7 @@
 .sidenav---sidenav---_2tBP{
     background: #343a40 !important;
+    position: fixed !important;
 }
-/* .sidenav---navtext---1AE_f{
-    color:  #fff !important;  #dae0e5 
-} */
 
 .sidenav---sidenav---_2tBP.sidenav---expanded---1KdUL .sidenav---sidenav-nav---3tvij > .sidenav---sidenav-navitem---uwIJ- .sidenav---navicon---3gCRo + .sidenav---navtext---1AE_f {
     visibility: visible;

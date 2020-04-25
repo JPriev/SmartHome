@@ -1,16 +1,19 @@
 import React, { Component, useState } from "react"
-import { Container, Row, Col, Card, CardGroup, InputGroup, FormControl, Button, Form } from 'react-bootstrap'
+// import { Container, Row, Col, Card, CardGroup, InputGroup, FormControl, Button, Form } from 'react-bootstrap'
+import { Container, Row, Col } from 'react-bootstrap'
 
 import '../css/Room.css'
 import TimeSince from '../TimeSince'
+import TemperatureCard from "./objects/TemperatureCard"
+import CurtainsCard from "./objects/CurtainsCard"
+import LightCard from "./objects/LightCard"
+import PlantWateringCard from "./objects/PlantWateringCard"
+import PetFoodCard from "./objects/PetFoodCard"
+import CoffeeMachineCard from "./objects/CoffeeMachineCard"
 
 class Kitchen extends Component {
     constructor(props){
         super(props)
-        // this.state = {
-        //     username: props.history.location.state.username,
-        //     password: props.history.location.state.password
-        // }
         this.state = {
             temperature: 0,
             temperatureValue: 0,
@@ -26,7 +29,41 @@ class Kitchen extends Component {
             curtainsMax: 100,
             curtainsStep: 1,
             timeSince_curtainsValue: "",
-            timeSince_curtainsValueDate: 0
+            timeSince_curtainsValueDate: 0,
+
+            light: 0,
+            lightValue: 0,
+            lightMin: 0,
+            lightMax: 100,
+            lightStep: 1,
+            timeSince_lightValue: "",
+            timeSince_lightValueDate: 0,
+
+            plants: 0,
+            plantsValue: 0,
+            plantsMin: 0,
+            plantsMax: 100,
+            plantsStep: 1,
+            timeSince_plantsValue: "",
+            timeSince_plantsValueDate: 0,
+            plantsSwitch: false,
+            plantsSwitchTemp: false,
+
+            petFood: 0,
+            petFoodValue: 0,
+            petFoodMin: 0,
+            petFoodMax: 48,
+            petPortion: 0,
+            petPortionValue: 0,
+            petPortionMin: 0,
+            petPortionMax: 2000,
+            timeSince_petFoodValue: "",
+            timeSince_petFoodValueDate: 0,
+
+            timeSince_coffeeValue: "",
+            timeSince_coffeeValueDate: 0,
+            coffeeSwitch: false,
+            coffeeSwitchTemp: false
         }
     }
 
@@ -37,24 +74,38 @@ class Kitchen extends Component {
     }
 
     handleOnClick = (event) => {
-        const state = this.state;
-        const value = `${event.target.name}Value`;
         const min = `${event.target.name}Min`;
         const max = `${event.target.name}Max`;
-        if (this.validation(state[min], state[max], state[event.target.name])) {
-            const ts = `timeSince_${event.target.name}Value`
-            const tsd = `timeSince_${event.target.name}ValueDate`
-            this.setState({
-                [value]: state[event.target.name],
-                [ts]: TimeSince(state[tsd]),
-                [tsd]: new Date()
-            });
-            console.log(state[value]);
-        } else {
-            alert(`INVALID VALUE!\n\nPlease insert value between ${state[min]} and ${state[max]}`);
-            console.log(`invalid: ${state[value]}`);
+        const switchValue = `${event.target.name}Switch`;
+        const temp = `${event.target.name}SwitchTemp`;
+        if (this.state[temp] !== this.state[switchValue]) {
+            this.handleSwitch(event)
         }
-    } // Handle error if input is higher than expected
+        if (typeof this.state[min] !== "undefined") {
+            if (this.validation(this.state[min], this.state[max], this.state[event.target.name])) {
+                this.handleValueChange(event)
+            } else {
+                alert(`INVALID VALUE!\n\nPlease insert value between ${this.state[min]} and ${this.state[max]}`);
+            }
+        }
+        this.handleTimeAgo(event)
+    }
+
+    handleTimeAgo = (event) => {
+        const ts = `timeSince_${event.target.name}Value`
+        const tsd = `timeSince_${event.target.name}ValueDate`
+        this.setState({
+            [ts]: TimeSince(this.state[tsd]),
+            [tsd]: new Date()
+        });
+    }
+
+    handleValueChange = (event) => {
+        const value = `${event.target.name}Value`;
+        this.setState({
+            [value]: this.state[event.target.name]
+        });
+    }
 
     validation = (min, max, val) => {
         if (val >= min && val <= max) {
@@ -64,174 +115,101 @@ class Kitchen extends Component {
         }
     }
 
+    handleSwitch = (event) => {
+        const name = `${event.target.name}Switch`;
+        this.setState({
+            [name]: !this.state[name]
+        });
+    }
+
+    wasSwitchChanged = (event) => {
+        const name = `${event.target.name}SwitchTemp`;
+        this.setState({
+            [name]: !this.state[name]
+        });
+    }
+
     render() {
         return (
-            <Container>
+            <Container className="container">
                 <Row>
-                <Col xs={12} md={6} lg={4}>
-                    <Card className="crd">
-                        <Card.Header>
-                            <Card.Title>Temperature</Card.Title>
-                        </Card.Header>
-                        <Card.Body>
-                            <Form.Group as={Row}>
-                                <InputGroup className="mb-3">
-                                    <Col sm={7} md={12} lg={12}>
-                                        <input 
-                                            type="range"
-                                            className="custom-range"
-                                            name="temperature"
-                                            value={this.state.temperature}
-                                            onChange = {this.handleInputChange}
-                                            min={this.state.temperatureMin}
-                                            max={this.state.temperatureMax}
-                                            step={this.state.temperatureStep}
-                                        />
-                                    </Col>
-                                    <Col sm={3} md={9} lg={9}>
-                                        <FormControl
-                                            aria-describedby="basic-addon2"
-                                            name="temperature"
-                                            value={this.state.temperature}
-                                            onChange={this.handleInputChange}
-                                            min={this.state.temperatureMin}
-                                            max={this.state.temperatureMax}
-                                            step={this.state.temperatureStep}
-                                        />
-                                    </Col>
-                                    <Col sm={2} md={3} lg={3}>
-                                        <InputGroup.Append>
-                                            <InputGroup.Text id="basic-addon2">°C</InputGroup.Text>
-                                        </InputGroup.Append>
-                                    </Col>
-                                </InputGroup>
-                            </Form.Group>
-                            <Button
-                                className="btn-lg btn-dark btn-block"
-                                name="temperature"
-                                onClick={this.handleOnClick}
-                            >
-                                Update
-                            </Button>
-                        </Card.Body>
-                        <Card.Footer>
-                            <small className="text-muted">{`Last updated ${this.state.timeSince_temperatureValue} ago`}</small>
-                        </Card.Footer>
-                    </Card>
-                </Col>
+                    <Col xs={12} md={6} lg={4}>
+                        <TemperatureCard  
+                            temperatureValue={this.state.temperatureValue}
+                            temperature={this.state.temperature}
+                            handleInputChange={this.handleInputChange}
+                            temperatureMin={this.state.temperatureMin}
+                            temperatureMax={this.state.temperatureMax}
+                            temperatureStep={this.state.temperatureStep}
+                            handleOnClick={this.handleOnClick}
+                            timeSince_temperatureValue={this.state.timeSince_temperatureValue}
+                        />
+                    </Col>
 
-                <Col xs={12} md={6} lg={4}>
-                <Card className="crd">
-                        <Card.Header>
-                            <Card.Title>Curtains</Card.Title>
-                        </Card.Header>
-                        <Card.Body>
-                            <Form.Group as={Row}>
-                                <InputGroup className="mb-3">
-                                    <Col sm={7} md={12} lg={12}>
-                                        <input 
-                                            type="range"
-                                            className="custom-range"
-                                            name="curtains"
-                                            value={this.state.curtains}
-                                            onChange = {this.handleInputChange}
-                                            min={this.state.curtainsMin}
-                                            max={this.state.curtainsMax}
-                                            step={this.state.curtainsStep}
-                                        />
-                                    </Col>
-                                    <Col sm={3} md={9} lg={9}>
-                                        <FormControl
-                                            aria-describedby="basic-addon2"
-                                            name="curtains"
-                                            value={this.state.curtains}
-                                            onChange={this.handleInputChange}
-                                            min={this.state.curtainsMin}
-                                            max={this.state.curtainsMax}
-                                            step={this.state.curtainsStep}
-                                        />
-                                    </Col>
-                                    <Col sm={2} md={3} lg={3}>
-                                        <InputGroup.Append>
-                                            <InputGroup.Text id="basic-addon2">°C</InputGroup.Text>
-                                        </InputGroup.Append>
-                                    </Col>
-                                </InputGroup>
-                            </Form.Group>
-                            <Button
-                                className="btn-lg btn-dark btn-block"
-                                name="curtains"
-                                onClick={this.handleOnClick}
-                            >
-                                Update
-                            </Button>
-                        </Card.Body>
-                        <Card.Footer>
-                            <small className="text-muted">{`Last updated ${this.state.timeSince_curtainsValue} ago`}</small>
-                        </Card.Footer>
-                    </Card>
-                </Col>
+                    <Col xs={12} md={6} lg={4}>
+                        <CurtainsCard  
+                            curtainsValue={this.state.curtainsValue}
+                            curtains={this.state.curtains}
+                            handleInputChange={this.handleInputChange}
+                            curtainstMin={this.state.curtainsMin}
+                            curtainsMax={this.state.curtainsMax}
+                            curtainsStep={this.state.curtainsStep}
+                            handleOnClick={this.handleOnClick}
+                            timeSince_curtainsValue={this.state.timeSince_curtainsValue}
+                        />
+                    </Col>
 
-                <Col xs={12} md={6} lg={4}>
-                    <Card className="crd">
-                        <Card.Body>
-                        <Card.Title>Temperature</Card.Title>
-                        <Card.Text>
-                            This is a wider card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.
-                        </Card.Text>
-                        </Card.Body>
-                        <Card.Footer>
-                        <small className="text-muted">Last updated 3 mins ago</small>
-                        </Card.Footer>
-                    </Card>
-                {/* </CardGroup> */}
-                </Col>
-                <Col xs={12} md={6} lg={4}>
-                    <Card className="crd">
-                        <Card.Body>
-                        <Card.Title>Temperature</Card.Title>
-                        <Card.Text>
-                            This is a wider card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.
-                        </Card.Text>
-                        </Card.Body>
-                        <Card.Footer>
-                        <small className="text-muted">Last updated 3 mins ago</small>
-                        </Card.Footer>
-                    </Card>
-                {/* </CardGroup> */}
-                </Col>
-                <Col xs={12} md={6} lg={4}>
-                    <Card className="crd">
-                        <Card.Body>
-                        <Card.Title>Temperature</Card.Title>
-                        <Card.Text>
-                            This is a wider card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.
-                        </Card.Text>
-                        </Card.Body>
-                        <Card.Footer>
-                        <small className="text-muted">Last updated 3 mins ago</small>
-                        </Card.Footer>
-                    </Card>
-                {/* </CardGroup> */}
-                </Col>
-                <Col xs={12} md={6} lg={4}>
-                    <Card className="crd">
-                        <Card.Body>
-                        <Card.Title>Temperature</Card.Title>
-                        <Card.Text>
-                            This is a wider card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.
-                        </Card.Text>
-                        </Card.Body>
-                        <Card.Footer>
-                        <small className="text-muted">Last updated 3 mins ago</small>
-                        </Card.Footer>
-                    </Card>
-                {/* </CardGroup> */}
-                </Col>
+                    <Col xs={12} md={6} lg={4}>
+                        <LightCard  
+                            lightValue={this.state.lightValue}
+                            light={this.state.light}
+                            handleInputChange={this.handleInputChange}
+                            lightMin={this.state.lightMin}
+                            lightMax={this.state.lightMax}
+                            lightStep={this.state.lightStep}
+                            handleOnClick={this.handleOnClick}
+                            timeSince_lightValue={this.state.timeSince_lightValue}
+                        />
+                    </Col>
+
+                    <Col xs={12} md={6} lg={4}>
+                        <PlantWateringCard  
+                            plantsValue={this.state.plantsValue}
+                            plants={this.state.plants}
+                            handleInputChange={this.handleInputChange}
+                            plantsMin={this.state.plantsMin}
+                            plantsMax={this.state.plantsMax}
+                            plantsStep={this.state.plantsStep}
+                            handleOnClick={this.handleOnClick}
+                            timeSince_plantsValue={this.state.timeSince_plantsValue}
+                            plantsSwitch={this.state.plantsSwitch}
+                            plantsSwitchTemp={this.state.plantsSwitchTemp}
+                            wasSwitchChanged={this.wasSwitchChanged}
+                        />
+                    </Col>
+
+                    <Col xs={12} md={6} lg={4}>
+                        <PetFoodCard
+                            petFood={this.state.petFood}
+                            petFoodMin={this.state.petFoodMin}
+                            petFoodMax={this.state.petFoodMax}
+                            petPortion={this.state.petPortion}
+                            petPortionMin={this.state.petPortionMin}
+                            petPortionMax={this.state.petPortionMax}
+                            timeSince_petFoodValue={this.state.timeSince_petFoodValue}
+                            handleInputChange={this.handleInputChange}
+                            handleOnClick={this.handleOnClick}
+                        />
+                    </Col>
+                    <Col xs={12} md={6} lg={4}>
+                        <CoffeeMachineCard
+                            wasSwitchChanged={this.wasSwitchChanged}
+                            coffeeSwitchTemp={this.state.coffeeSwitchTemp}
+                            timeSince_coffeeValue={this.state.timeSince_coffeeValue}
+                            handleInputChange={this.handleInputChange}
+                            handleOnClick={this.handleOnClick}
+                        />
+                    </Col>
                 </Row>
             </Container>
         )

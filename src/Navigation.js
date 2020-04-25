@@ -17,7 +17,7 @@ import Electricity from './components/Electricity'
 import Security from './components/Security'
 import Settings from './components/Settings'
 
-function Navigation(location, history) {
+function Navigation() {
 
   return (
     <Router>
