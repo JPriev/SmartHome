@@ -19,8 +19,8 @@ expect(wrapper.state('password')).toEqual('krishankant123');
 
 it('login check with right data',()=>{
 wrapper = shallow(<Login/>);
-wrapper.find('input[type="text"]').simulate('change', {target: {name: 'username', value: 'labas'}});
-wrapper.find('input[type="password"]').simulate('change', {target: {name: 'password', value: 'krabas'}});
+wrapper.find('#username').simulate('change', {target: {name: 'username', value: 'labas'}});
+wrapper.find('#password').simulate('change', {target: {name: 'password', value: 'krabas'}});
 wrapper.find('#button').simulate('click');
 expect(wrapper.state('isLogined')).toBe(true);
 })
