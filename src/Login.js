@@ -112,6 +112,7 @@ class Login extends Component {
                                         <InputGroup.Text id="inputGroup-sizing-default">Username</InputGroup.Text>
                                     </InputGroup.Prepend>
                                     <FormControl
+                                        id="username"
                                         type="text"
                                         name="username"
                                         placeholder="Enter your username"
@@ -125,6 +126,7 @@ class Login extends Component {
                                         <InputGroup.Text id="inputGroup-sizing-default">Password</InputGroup.Text>
                                     </InputGroup.Prepend>
                                     <FormControl
+                                        id="password"
                                         type="password"
                                         placeholder="Enter your password"
                                         name="password"
@@ -133,7 +135,7 @@ class Login extends Component {
                                 </InputGroup>
                             {/* </Col>
                             <Col xs={12}> */}
-                                <Button className="btn-lg btn-dark btn-block" type="submit">Login</Button>
+                                <Button className="btn-lg btn-dark btn-block" type="submit" id="button">Login</Button>
                                 <Button onClick={this.handleModalOpen} className="btn-lg btn-light btn-block">Register</Button>
                             {/* </Col> */}
                             
