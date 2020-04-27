@@ -45,6 +45,7 @@ class TemperatureCard extends Component {
                                 <FormControl
                                     aria-describedby="basic-addon2"
                                     name="temperature"
+                                    id="temperature"
                                     value={this.props.temperature}
                                     onChange={this.props.handleInputChange}
                                     min={this.props.temperatureMin}
@@ -61,6 +62,7 @@ class TemperatureCard extends Component {
                         <Button
                             className="btn-lg btn-dark btn-block"
                             name="temperature"
+                            id="button"
                             onClick={this.props.handleOnClick}
                         >
                             Update
