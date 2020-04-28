@@ -102,6 +102,7 @@ class Garage extends Component {
                 <Row>
                     <Col xs={12} md={6} lg={4}>
                         <GarageGateCard
+                            id="garageCard"
                             wasSwitchChanged={this.wasSwitchChanged}
                             garageSwitchTemp={this.state.garageSwitchTemp}
                             timeSince_garageValue={this.state.timeSince_garageValue}
@@ -111,7 +112,8 @@ class Garage extends Component {
                     </Col>
 
                     <Col xs={12} md={6} lg={4}>
-                        <TemperatureCard  
+                        <TemperatureCard
+                            id="temperatureCard"
                             temperatureValue={this.state.temperatureValue}
                             temperature={this.state.temperature}
                             handleInputChange={this.handleInputChange}
@@ -124,7 +126,8 @@ class Garage extends Component {
                     </Col>
 
                     <Col xs={12} md={6} lg={4}>
-                        <LightCard  
+                        <LightCard 
+                            id="lightCard" 
                             lightValue={this.state.lightValue}
                             light={this.state.light}
                             handleInputChange={this.handleInputChange}
