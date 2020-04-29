@@ -1,0 +1,33 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: NodeTool@0 
+  inputs:
+    versionSpec: '12.16.1'
+
+- script: npm install
+  displayName: 'Install npm'
+
+- script: npm install axios
+  displayName: 'Install axios'
+
+- script: npm test
+  displayName: "Run Unit Tests"
+
+- script: |
+    npm run build
+  displayName: 'Build npm'
+
+- task: CopyFiles@2
+  inputs:
+    Contents: 'build/**' # Pull the build directory (React)
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: PublishBuildArtifacts@1
+  inputs: 
+    pathtoPublish: $(Build.ArtifactStagingDirectory) # dist or build files
+    ArtifactName: 'www' # output artifact named www
