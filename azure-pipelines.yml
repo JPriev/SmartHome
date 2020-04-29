@@ -14,10 +14,7 @@ steps:
 
 - script: npm install axios
   displayName: 'Install axios'
-
-- script: npm install react-scripts --save
-  displayName: "React Scripts"
-
+  
 - script: npm test
   displayName: "Run Unit Tests"
 
